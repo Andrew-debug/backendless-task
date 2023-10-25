@@ -25,12 +25,12 @@ const App = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <BrowserRouter>
+      <BrowserRouter basename="backendless-task">
         <ul className="nav">
           {fetchedRoutes &&
             fetchedRoutes.map((route) => (
               <li key={route.id}>
-                <Link to={`backendless-task/${route.id}`}>{route.title}</Link>
+                <Link to={route.id}>{route.title}</Link>
               </li>
             ))}
         </ul>
@@ -38,15 +38,11 @@ const App = () => {
           {routes && (
             <>
               <Route
-                path="/backendless-task"
+                path="/"
                 element={<Navigate to={fetchedRoutes[0].id} replace />}
               />
               {routes.map((route, index) => (
-                <Route
-                  key={index}
-                  path={`backendless-task/${route.path}`}
-                  element={route.element}
-                />
+                <Route key={index} path={route.path} element={route.element} />
               ))}
             </>
           )}
